@@ -25,7 +25,7 @@ You can then use this as your authenticator by adding the following line to
 your `jupyterhub_config.py`:
 
 ```
-c.JupyterHub.authenticator_class = 'dummyauthenticator.DummyAuthenticator'
+c.JupyterHub.authenticator_class = 'hmacauthenticator.HMACAuthenticator'
 
 c.HMACAuthenticator.secret_key = bytes.fromhex('secret-key-here')
 ```
