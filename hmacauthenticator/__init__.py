@@ -2,7 +2,6 @@ import hmac
 import hashlib
 
 from jupyterhub.auth import Authenticator
-from tornado import gen
 from traitlets import Bytes, Unicode, Union, validate
 
 
@@ -41,8 +40,7 @@ class HMACAuthenticator(Authenticator):
             return r
 
 
-    @gen.coroutine
-    def authenticate(self, handler, data):
+    async def authenticate(self, handler, data):
         sha512_hmac = hmac.new(
             self.secret_key,
             data['username'].encode('utf-8'),
