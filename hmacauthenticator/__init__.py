@@ -3,7 +3,7 @@ import hashlib
 
 from jupyterhub.auth import Authenticator
 from tornado import gen
-from traitlets import Bytes
+from traitlets import Bytes, Unicode, Union, validate
 
 
 class HMACAuthenticator(Authenticator):
@@ -16,7 +16,8 @@ class HMACAuthenticator(Authenticator):
     password based authenticators.
     """
 
-    secret_key = Bytes(
+    secret_key = Union(
+        [Bytes(), Unicode()],
         config=True,
         help="""
         Hex encoded secret key to use for deriving the HMAC.
@@ -25,6 +26,20 @@ class HMACAuthenticator(Authenticator):
         which provides a 512-bit secret key.
         """
     )
+
+
+    @validate('secret_key')
+    def _validate_secret_key(self, proposal):
+        """Coerces strings with even number of hexidecimal characters to bytes."""
+        r = proposal['value']
+        if type(r) == str:
+            try:
+                return bytes.fromhex(r)
+            except ValueError:
+                raise ValueError("secret_key set as a string must contain an even amount of hexadecimal characters.")
+        else:
+            return r
+
 
     @gen.coroutine
     def authenticate(self, handler, data):
