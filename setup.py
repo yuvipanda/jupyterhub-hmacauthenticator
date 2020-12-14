@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='jupyterhub-hmacauthenticator',
-    version='0.1',
+    version='1.0',
     description='Dummy Authenticator for JupyterHub',
     url='https://github.com/yuvipanda/jupyterhub-hmacauthenticator',
     author='Yuvi Panda',
