@@ -1,3 +1,7 @@
+# Deprecated
+
+Don't use this! If you want to test with a large number of *servers*, use named servers and tokens instead!
+
 # HMAC JupyterHub Authenticator #
 
 Special authenticator for [JupyterHub](http://github.com/jupyter/jupyterhub/)
